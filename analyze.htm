@@ -1,0 +1,87 @@
+<script>
+// ===============================
+// 1. DANH SÁCH TỪ / CÂU QUẤY RỐI
+// ===============================
+const offensive=[
+/* ===== Nhóm gạ gẫm hình ảnh ===== */
+"gửi ảnh nóng","cho xem chút đi","cho anh xem hàng","chụp ảnh kín gửi qua đây",
+"không mặc gì chụp cho anh","gửi ảnh mát mẻ","show hàng đi em","chụp chỗ đó cho anh xem",
+"gửi ảnh nuy","gửi ảnh nude","ước gì được thấy em ngay lúc này",
+"đừng ngại chỉ hai đứa biết thôi","có ảnh nào mới tươi không","chụp cận cảnh đi",
+"quay clip ngắn gửi qua đây","gửi ảnh không che","đang mặc đồ gì đó","cởi bớt ra được không",
+"nhìn ảnh em anh chịu không nổi","gửi ảnh thưởng","cho anh xem vốn tự có",
+
+/* ===== Chat sex & Hẹn gặp ===== */
+"chat sex không","nói chuyện người lớn","tự sướng không","vui vẻ qua cam",
+"xem phim đen không","đi khách sạn không","bao nuôi em","người tình bí mật",
+"thử cảm giác lạ","cho anh địa chỉ nhà","đêm nay qua với anh","anh thèm em",
+"muốn chạm vào người em","em làm anh rạo rực","kể về lần đầu","thích tư thế nào",
+"ra ngoài gặp chút","anh trả tiền cho thời gian","sugar baby",
+
+/* ===== Đe dọa & Tống tiền ===== */
+"tôi có ảnh nóng của bạn","muốn clip này lên mạng không","gửi thêm ảnh nếu không muốn bị lộ",
+"tôi sẽ gửi cho bố mẹ bạn","đừng để tôi đăng","ngoan ngoãn thì tôi xóa","tôi biết địa chỉ nhà bạn",
+"một là gửi ảnh hai là mất mặt","hack camera","trả tiền tôi sẽ xóa clip","đừng chặn tôi","liệu mà nghe lời",
+
+/* ===== Bình phẩm khiếm nhã ===== */
+"ngon quá","mẩy thật","vòng một đẹp","mông to","giỏi chuyện đó","kích dục",
+"dâm đãng","dễ dãi","đồ lẳng lơ","sinh ra để đàn ông hưởng","hàng họ thế nào","đè em ra","quyến rũ rẻ tiền",
+
+/* ===== Thao túng tâm lý ===== */
+"anh chỉ đùa","em nhạy cảm quá","đàn ông ai chẳng thế","không làm theo là không yêu",
+"đừng ngây thơ","ai bảo em đăng ảnh","em quyến rũ trước","có mất mát gì đâu","chỉ xem thôi",
+"bí mật của chúng ta","chẳng ai tin đâu","em cũng tận hưởng mà đúng không",
+
+/* ===== Từ lóng & câu lệnh biến thái ===== */
+"check inbox","coi hàng không","thủ dâm nghĩ về em","bắn vào mặt","nước nhiều không",
+"xin tư liệu","link đâu","đi tour","ăn tươi nuốt sống","clip cho nóng","mặc lót màu gì",
+"cởi nút áo","dạy em cách yêu","em thuộc về anh","đừng hòng chạy thoát",
+
+/* ===== Từ ngữ mới bổ sung ===== */
+"hấp dẫn","sexy","chịch","lồn","cu","cặc"
+];
+
+// ===============================
+// 2. CẤU TRÚC CÂU NGUY HIỂM (REGEX)
+// ===============================
+const patterns=[
+/gửi\s+ảnh.*cho/i,
+/chụp.*gửi/i,
+/quay.*clip.*cho/i,
+/ảnh.*nóng/i,
+/cho\s+.*\s+xem\s+.*\s+đẹp\s+của\s+.*/i
+];
+
+// ===============================
+// 3. HÀM PHÂN TÍCH
+// ===============================
+function analyze(){
+  const text=document.getElementById("message").value.toLowerCase();
+  let danger=false;
+
+  // kiểm tra từ/câu
+  for(let w of offensive){
+    if(text.includes(w)){
+      danger=true;
+      break;
+    }
+  }
+
+  // kiểm tra cấu trúc
+  if(!danger){
+    for(let p of patterns){
+      if(p.test(text)){
+        danger=true;
+        break;
+      }
+    }
+  }
+
+  // kết quả
+  if(danger){
+    window.location.href="alert.html";
+  }else{
+    document.getElementById("result").innerText="Nội dung an toàn, lành mạnh";
+  }
+}
+</script>
